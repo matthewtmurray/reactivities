@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Application.Activities;
+using System.Threading;
 
 namespace API.Controllers
 {
@@ -34,6 +35,11 @@ namespace API.Controllers
             activity.Id = id;
             return Ok(await Mediator.Send(new Edit.Command{Activity = activity}));
         }
-    
+
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> DeleteActivity(Guid Id)
+        {
+            return Ok(await Mediator.Send(new Delete.Command{Id = Id}));
+        } 
     }
 }
